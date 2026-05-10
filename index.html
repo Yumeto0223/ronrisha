@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>論理舎 | 国語・小論文専門オンライン塾</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Shippori+Mincho+B1:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1612;
+    --ink-mid: #3d3530;
+    --ink-light: #7a6f68;
+    --ink-faint: #c8bfb8;
+    --paper: #faf7f3;
+    --paper-warm: #f3ede4;
+    --paper-card: #ffffff;
+    --accent: #8b2f1a;
+    --accent-light: #c4563c;
+    --accent-pale: #f5e8e4;
+    --accent2: #2a4a3e;
+    --accent2-light: #3d6b5a;
+    --line: #ddd5cb;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+    font-weight: 300;
+    line-height: 1.9;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,247,243,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 0 5vw;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    font-family: 'Shippori Mincho B1', serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-decoration: none;
+  }
+  .logo span {
+    font-size: 0.72rem;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    color: var(--ink-light);
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    display: block;
+    margin-top: -3px;
+  }
+  nav { display: flex; gap: 2.2rem; align-items: center; }
+  nav a {
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--accent); }
+  .btn-trial {
+    background: var(--accent);
+    color: #fff !important;
+    padding: 0.45em 1.3em;
+    border-radius: 2px;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.12em;
+    transition: background 0.2s !important;
+  }
+  .btn-trial:hover { background: var(--accent-light) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 100px 10vw 60px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--paper) 55%, var(--paper-warm) 100%);
+    z-index: 0;
+  }
+  .hero-lines {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    overflow: hidden;
+  }
+  .hero-lines::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 560px; height: 560px;
+    border-radius: 50%;
+    border: 1.5px solid var(--line);
+  }
+  .hero-lines::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    font-weight: 400;
+    margin-bottom: 1.4rem;
+    display: flex; align-items: center; gap: 0.8em;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+  .hero-heading {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+  }
+  .hero-heading em {
+    font-style: normal;
+    color: var(--accent);
+    display: block;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--ink-mid);
+    margin-bottom: 0.6rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+  .hero-tagline {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    letter-spacing: 0.06em;
+    margin-bottom: 2.6rem;
+    padding-left: 1em;
+    border-left: 2px solid var(--accent-pale);
+  }
+  .hero-ctas { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .cta-primary {
+    background: var(--accent);
+    color: #fff;
+    padding: 0.85em 2.2em;
+    font-size: 0.88rem;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .cta-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
+  .cta-secondary {
+    color: var(--ink-mid);
+    font-size: 0.83rem;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-faint);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .cta-secondary:hover { color: var(--accent); border-color: var(--accent); }
+  .hero-image-area {
+    position: absolute; right: 5vw; top: 50%; transform: translateY(-50%);
+    z-index: 2;
+    width: min(38vw, 420px);
+  }
+  .hero-image-area img {
+    width: 100%; border-radius: 4px;
+    filter: sepia(0.15) contrast(1.05);
+    box-shadow: 20px 20px 60px rgba(26,22,18,0.12);
+  }
+  .hero-image-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--paper-warm);
+    border: 1.5px dashed var(--line);
+    border-radius: 4px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.5rem;
+    color: var(--ink-faint);
+    font-size: 0.78rem; letter-spacing: 0.12em;
+  }
+  .hero-image-placeholder svg { opacity: 0.35; }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 96px 10vw; }
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.6em;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--accent);
+  }
+  .section-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    margin-bottom: 1.6rem;
+  }
+  .section-lead {
+    font-size: 0.95rem;
+    color: var(--ink-mid);
+    max-width: 600px;
+    line-height: 2;
+  }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 0;
+  }
+
+  /* ── PAIN POINTS ── */
+  .pain { background: var(--paper-warm); }
+  .pain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 3rem;
+  }
+  .pain-item {
+    background: var(--paper-warm);
+    padding: 1.6rem 1.8rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+  }
+  .pain-num {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.4rem;
+    color: var(--ink-faint);
+    font-weight: 700;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 0.15rem;
+  }
+  .pain-text {
+    font-size: 0.9rem;
+    color: var(--ink-mid);
+    line-height: 1.8;
+    font-weight: 400;
+  }
+  .pain-summary {
+    margin-top: 2.4rem;
+    padding: 1.6rem 2rem;
+    background: var(--accent-pale);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 2px 2px 0;
+    font-size: 0.9rem;
+    color: var(--ink-mid);
+    line-height: 2;
+  }
+  .pain-summary strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ── FEATURES ── */
+  .features-inner {
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .feature-row {
+    display: grid;
+    grid-template-columns: 80px 1fr min(38vw, 380px);
+    gap: 2.5rem;
+    align-items: start;
+    padding: 3.5rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .feature-row:last-child { border-bottom: none; }
+  .feature-num {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--ink-faint);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    padding-top: 0.1rem;
+  }
+  .feature-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--accent2);
+    margin-bottom: 0.6rem;
+    font-weight: 400;
+  }
+  .feature-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+  }
+  .feature-desc {
+    font-size: 0.88rem;
+    color: var(--ink-mid);
+    line-height: 2;
+    margin-bottom: 1rem;
+  }
+  .feature-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .feature-pill {
+    font-size: 0.74rem;
+    color: var(--accent2-light);
+    background: #e8f0ed;
+    border-radius: 2px;
+    padding: 0.25em 0.7em;
+    letter-spacing: 0.06em;
+  }
+  .feature-visual {
+    aspect-ratio: 4/3;
+    background: var(--paper-warm);
+    border: 1.5px dashed var(--line);
+    border-radius: 4px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.5rem;
+    color: var(--ink-faint);
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+  }
+  .feature-visual svg { opacity: 0.3; }
+
+  /* ── ABOUT / NAME ── */
+  .about { background: var(--ink); color: var(--paper); }
+  .about .section-label { color: var(--ink-faint); }
+  .about .section-label::before { background: var(--ink-faint); }
+  .about .section-title { color: var(--paper); }
+  .about-body {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 3.5rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+  .about-divline { background: #3a3530; }
+  .about-quote {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.55;
+    letter-spacing: 0.08em;
+    color: var(--paper);
+    padding-right: 1rem;
+  }
+  .about-text {
+    font-size: 0.88rem;
+    color: #b0a8a0;
+    line-height: 2.1;
+    padding-left: 1rem;
+  }
+  .about-text strong {
+    color: var(--paper);
+    font-weight: 400;
+  }
+
+  /* ── TARGET ── */
+  .target { background: var(--paper-warm); }
+  .target-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .target-card {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 1.5rem 1.4rem;
+    text-align: center;
+  }
+  .target-icon {
+    width: 40px; height: 40px;
+    background: var(--accent-pale);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 0.8rem;
+  }
+  .target-icon svg { color: var(--accent); }
+  .target-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── FLOW ── */
+  .flow-steps {
+    display: flex;
+    gap: 0;
+    margin-top: 3rem;
+    position: relative;
+  }
+  .flow-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: 28px; right: 28px;
+    height: 1px;
+    background: var(--line);
+    z-index: 0;
+  }
+  .flow-step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding: 0 0.5rem;
+  }
+  .flow-circle {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent);
+    background: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 0.9rem;
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .flow-step-title {
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.06em;
+  }
+  .flow-step-desc {
+    font-size: 0.76rem;
+    color: var(--ink-light);
+    line-height: 1.7;
+  }
+
+  /* ── CTA SECTION ── */
+  .cta-section {
+    background: var(--accent);
+    color: #fff;
+    text-align: center;
+    padding: 96px 10vw;
+  }
+  .cta-section .section-label { color: rgba(255,255,255,0.6); justify-content: center; }
+  .cta-section .section-label::before { background: rgba(255,255,255,0.6); }
+  .cta-big {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.4rem;
+  }
+  .cta-body { font-size: 0.92rem; opacity: 0.85; margin-bottom: 2.4rem; line-height: 2; }
+  .cta-white {
+    display: inline-block;
+    background: #fff;
+    color: var(--accent);
+    padding: 0.85em 2.6em;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .cta-white:hover { opacity: 0.92; transform: translateY(-2px); }
+  .cta-note {
+    margin-top: 1.2rem;
+    font-size: 0.76rem;
+    opacity: 0.65;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: #6e665f;
+    padding: 3.5rem 10vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-logo {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.2rem;
+    color: var(--paper);
+    letter-spacing: 0.1em;
+  }
+  .footer-copy { font-size: 0.74rem; letter-spacing: 0.1em; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    font-size: 0.76rem;
+    color: #6e665f;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--paper); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .hero-image-area { display: none; }
+    nav a:not(.btn-trial) { display: none; }
+    .pain-grid { grid-template-columns: 1fr; }
+    .feature-row { grid-template-columns: 60px 1fr; }
+    .feature-visual { display: none; }
+    .about-body { grid-template-columns: 1fr; }
+    .about-divline { display: none; }
+    .about-quote { font-size: 1.4rem; padding: 0; }
+    .about-text { padding: 0; }
+    .flow-steps::before { display: none; }
+    .flow-steps { flex-direction: column; gap: 1.5rem; }
+    .flow-step { display: flex; align-items: center; gap: 1.2rem; text-align: left; }
+    .flow-circle { flex-shrink: 0; margin: 0; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a class="logo" href="#">論理舎<span>RONRI-SHA | 国語・小論文専門塾</span></a>
+  <nav>
+    <a href="#features">指導内容</a>
+    <a href="#about">塾について</a>
+    <a href="#target">対象</a>
+    <a href="#trial" class="btn-trial">無料体験授業</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">国語・小論文専門オンライン塾</p>
+    <h1 class="hero-heading">
+      読める。<br>
+      考えられる。<em>書ける。</em>
+    </h1>
+    <p class="hero-sub">"なんとなく"を卒業する国語専門塾。</p>
+    <p class="hero-tagline">
+      MARCH・地方国立を目指す中高生へ。<br>
+      論理舎は、読解・記述・小論文に特化したオンライン専門塾です。
+    </p>
+    <div class="hero-ctas">
+      <a href="#trial" class="cta-primary">無料体験授業を申し込む</a>
+      <a href="#features" class="cta-secondary">指導内容を見る →</a>
+    </div>
+  </div>
+  <!-- <div class="hero-image-area">
+    <div class="hero-image-placeholder">
+      <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+        <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+      </svg>
+      <span>写真をここに挿入</span>
+      <span style="font-size:0.68rem;opacity:0.6">（推奨：縦長・勉強風景）</span>
+    </div>
+  </div> -->
+</section>
+
+<hr class="divider">
+
+<!-- PAIN POINTS -->
+<section class="pain" id="pain">
+  <div class="reveal">
+    <p class="section-label">こんなお悩みはありませんか</p>
+    <h2 class="section-title">国語が伸びない理由は、<br>才能ではなく"読み方"です。</h2>
+    <p class="section-lead">多くの生徒は、「読む力」を体系的に教わっていません。<br>だからこそ論理舎では、考え方そのものを指導します。</p>
+  </div>
+  <div class="pain-grid reveal" style="transition-delay:0.15s">
+    <div class="pain-item"><span class="pain-num">01</span><p class="pain-text">文章を読んでも内容が頭に入らない</p></div>
+    <div class="pain-item"><span class="pain-num">02</span><p class="pain-text">記述問題で何を書けばいいかわからない</p></div>
+    <div class="pain-item"><span class="pain-num">03</span><p class="pain-text">小論文が感想文になってしまう</p></div>
+    <div class="pain-item"><span class="pain-num">04</span><p class="pain-text">国語の勉強法がわからない</p></div>
+    <div class="pain-item"><span class="pain-num">05</span><p class="pain-text">模試の点数が安定しない</p></div>
+    <div class="pain-item"><span class="pain-num">06</span><p class="pain-text">どんな文章が出ても対応できる自信がない</p></div>
+  </div>
+  <div class="pain-summary reveal" style="transition-delay:0.25s">
+    論理舎では、文章構造・設問分析・根拠の拾い方・要約・記述の作り方まで、<strong>"考え方そのもの"</strong>を指導します。<br>
+    国語は、才能ではありません。<strong>正しく読み、整理し、言葉にする技術</strong>です。
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FEATURES -->
+<section id="features">
+  <p class="section-label reveal">論理舎の指導</p>
+  <h2 class="section-title reveal">感覚ではなく、<br>「論理」で解く国語。</h2>
+  <div class="features-inner">
+
+    <div class="feature-row reveal">
+      <div class="feature-num">01</div>
+      <div class="feature-body">
+        <p class="feature-tag">読解指導</p>
+        <h3 class="feature-title">読解を"構造"で教える</h3>
+        <p class="feature-desc">接続語・対比・具体と抽象・筆者の主張・設問の要求——文章を分解しながら読むことで、「なんとなく理解した」をなくします。感覚ではなく、論理で読む力を養います。</p>
+        <div class="feature-tags">
+          <span class="feature-pill">接続語分析</span>
+          <span class="feature-pill">対比の構造</span>
+          <span class="feature-pill">具体と抽象</span>
+          <span class="feature-pill">設問分析</span>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span>授業風景・テキスト写真</span>
+      </div>
+    </div>
+
+    <div class="feature-row reveal" style="transition-delay:0.1s">
+      <div class="feature-num">02</div>
+      <div class="feature-body">
+        <p class="feature-tag">小論文指導</p>
+        <h3 class="feature-title">小論文をゼロから指導</h3>
+        <p class="feature-desc">課題文の読み方、意見の組み立て、根拠の作り方、構成の作法、添削と改善まで、一つずつ指導します。総合型選抜・学校推薦型選抜にも対応しています。</p>
+        <div class="feature-tags">
+          <span class="feature-pill">課題文読解</span>
+          <span class="feature-pill">意見構成</span>
+          <span class="feature-pill">添削指導</span>
+          <span class="feature-pill">総合型対応</span>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span>添削・ノート写真</span>
+      </div>
+    </div>
+
+    <div class="feature-row reveal" style="transition-delay:0.2s">
+      <div class="feature-num">03</div>
+      <div class="feature-body">
+        <p class="feature-tag">授業スタイル</p>
+        <h3 class="feature-title">少人数・高密度授業</h3>
+        <p class="feature-desc">必要なのは「長時間勉強した感」ではなく、本当に伸びる学習です。論理舎は、ただ長時間拘束する塾ではありません。短時間で集中し、本質を理解する授業を行います。</p>
+        <div class="feature-tags">
+          <span class="feature-pill">少人数制</span>
+          <span class="feature-pill">オンライン完結</span>
+          <span class="feature-pill">集中型授業</span>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span>オンライン授業の様子</span>
+      </div>
+    </div>
+
+    <div class="feature-row reveal" style="transition-delay:0.3s">
+      <div class="feature-num">04</div>
+      <div class="feature-body">
+        <p class="feature-tag">オプション</p>
+        <h3 class="feature-title">社会科オプションにも対応</h3>
+        <p class="feature-desc">小論文では、社会的視点が重要になります。希望者には、政治経済・歴史・時事問題・中学社会科などを扱う社会科授業も提供。「考えるための知識」を身につけます。</p>
+        <div class="feature-tags">
+          <span class="feature-pill">時事問題</span>
+          <span class="feature-pill">政治経済</span>
+          <span class="feature-pill">倫理</span>
+          <span class="feature-pill">日本史</span>
+          <span class="feature-pill">世界史</span>
+          <span class="feature-pill">地理</span>
+          <span class="feature-pill">中学社会科</span>
+        </div>
+      </div>
+      <div class="feature-visual">
+        <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span>テキスト・参考書写真</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ABOUT / NAME -->
+<section class="about" id="about">
+  <p class="section-label reveal">塾名に込めた想い</p>
+  <h2 class="section-title reveal">「論理舎」について</h2>
+  <div class="about-body reveal" style="transition-delay:0.1s">
+    <p class="about-quote">
+      "なんとなく読む"から<br>卒業するための場所。
+    </p>
+    <div class="about-divline"></div>
+    <div class="about-text">
+      <p>「論理舎」の<strong>"論理"</strong>は、単なる読解テクニックではなく、<strong>"考え、整理し、言葉にする力"</strong>そのものを意味しています。</p>
+      <br>
+      <p>国語や小論文は、センスではありません。文章を正しく読み取り、根拠をもって考え、自分の言葉で表現する——その積み重ねによって、着実に伸ばすことができる教科です。</p>
+      <br>
+      <p><strong>「舎」</strong>には、落ち着いて学び、思考を深める場所という意味を込めました。論理舎は、一生使える読解力・記述力・思考力を育てるオンライン専門塾です。</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TARGET -->
+<section class="target" id="target">
+  <p class="section-label reveal">対象</p>
+  <h2 class="section-title reveal">こんな生徒に来てほしい</h2>
+  <p class="section-lead reveal">小学5年生〜高校3年生まで。国語を武器にしたいすべての生徒へ。<br>※ 小4以下の場合もお気軽にご相談ください。</p>
+  <div class="target-grid reveal" style="transition-delay:0.15s">
+    <div class="target-card">
+      <div class="target-icon">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <p class="target-label">MARCH志望</p>
+    </div>
+    <div class="target-card">
+      <div class="target-icon">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+        </svg>
+      </div>
+      <p class="target-label">地方国立志望</p>
+    </div>
+    <div class="target-card">
+      <div class="target-icon">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+        </svg>
+      </div>
+      <p class="target-label">総合型・推薦対策</p>
+    </div>
+    <div class="target-card">
+      <div class="target-icon">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+        </svg>
+      </div>
+      <p class="target-label">小5生～高3生</p>
+    </div>
+    <div class="target-card">
+      <div class="target-icon">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        </svg>
+      </div>
+      <p class="target-label">国語を武器にしたい</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FLOW -->
+<section id="flow">
+  <p class="section-label reveal">ご入塾までの流れ</p>
+  <h2 class="section-title reveal">はじめての方へ</h2>
+  <div class="flow-steps reveal" style="transition-delay:0.1s">
+    <div class="flow-step">
+      <div class="flow-circle">1</div>
+      <p class="flow-step-title">お問い合わせ</p>
+      <p class="flow-step-desc">フォームからお気軽にご連絡ください</p>
+    </div>
+    <div class="flow-step">
+      <div class="flow-circle">2</div>
+      <p class="flow-step-title">無料体験授業</p>
+      <p class="flow-step-desc">オンラインで実際の授業を体験いただけます</p>
+    </div>
+    <div class="flow-step">
+      <div class="flow-circle">3</div>
+      <p class="flow-step-title">カウンセリング</p>
+      <p class="flow-step-desc">現状と目標を丁寧にヒアリング。最適なプランをご提案</p>
+    </div>
+    <div class="flow-step">
+      <div class="flow-circle">4</div>
+      <p class="flow-step-title">入塾・授業開始</p>
+      <p class="flow-step-desc">論理で読む力を、ここから育てます</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CTA -->
+<section class="cta-section" id="trial">
+  <p class="section-label">無料体験授業</p>
+  <p class="cta-big">「国語はセンスだと<br>思っていた」</p>
+  <p class="cta-body">
+    そんな生徒ほど、変化を実感しています。<br>
+    論理で読む力を、ここから。
+  </p>
+  <a href="#" class="cta-white">無料体験授業に申し込む</a>
+  <p class="cta-note">※ オンライン開催。費用は一切かかりません。</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <p class="footer-logo">論理舎</p>
+    <p style="font-size:0.74rem;color:#6e665f;margin-top:0.3rem;letter-spacing:0.1em;">国語・小論文専門オンライン塾</p>
+  </div>
+  <div class="footer-links">
+    <a href="#">プライバシーポリシー</a>
+    <a href="#">特定商取引法に基づく表記</a>
+    <a href="#">お問い合わせ</a>
+  </div>
+  <p class="footer-copy">© 2026 論理舎 All rights reserved.</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
