@@ -346,6 +346,20 @@
     letter-spacing: 0.06em;
   }
   .feature-visual {
+    aspect-ratio: 4 / 3;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--paper-warm);
+    border: 1.5px solid var(--line);
+  }
+
+  .feature-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+  /* .feature-visual {
     aspect-ratio: 4/3;
     background: var(--paper-warm);
     border: 1.5px dashed var(--line);
@@ -356,7 +370,7 @@
     font-size: 0.74rem;
     letter-spacing: 0.1em;
   }
-  .feature-visual svg { opacity: 0.3; }
+  .feature-visual svg { opacity: 0.3; } */
 
   /* ── ABOUT / NAME ── */
   .about { background: var(--ink); color: var(--paper); }
@@ -539,8 +553,14 @@
     .hero-image-area { display: none; }
     nav a:not(.btn-trial) { display: none; }
     .pain-grid { grid-template-columns: 1fr; }
-    .feature-row { grid-template-columns: 60px 1fr; }
-    .feature-visual { display: none; }
+    .feature-row { 
+      grid-template-columns: 1fr; 
+      gap: 1.5rem;
+    }
+    .feature-num {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
     .about-body { grid-template-columns: 1fr; }
     .about-divline { display: none; }
     .about-quote { font-size: 1.4rem; padding: 0; }
@@ -650,10 +670,7 @@
         </div>
       </div>
       <div class="feature-visual">
-        <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-        </svg>
-        <span><img src="./01ronri.png" alt="授業風景・テキスト写真"></span>
+        <img src="01ronri.png" alt="読解指導の授業風景">
       </div>
     </div>
 
@@ -671,10 +688,7 @@
         </div>
       </div>
       <div class="feature-visual">
-        <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-        </svg>
-        <span><img src="./02ronri.png" alt="添削・ノート写真"></span>
+        <img src="02ronri.png" alt="小論文添削の様子">
       </div>
     </div>
 
@@ -691,10 +705,7 @@
         </div>
       </div>
       <div class="feature-visual">
-        <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-        </svg>
-        <span><img src="./02ronri.png" alt="オンライン授業の様子"></span>
+        <img src="03ronri.png" alt="オンライン授業の様子">
       </div>
     </div>
 
@@ -715,10 +726,7 @@
         </div>
       </div>
       <div class="feature-visual">
-        <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-        </svg>
-        <span><img src="./02ronri.png" alt="テキスト・参考書写真"></span>
+        <img src="04ronri.png" alt="社会科授業の教材">
       </div>
     </div>
 
